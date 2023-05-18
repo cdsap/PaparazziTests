@@ -29,7 +29,7 @@ subprojects {
   tasks.withType(Test).configureEach {
     useJUnitPlatform()
     inputs.file("build/intermediates/paparazzi/${it.name.replace("UnitTest", "").replace("test", "").toLowerCase()}/resources.txt")
-    outputs.dir("$buildDir/reports/paparazzi/")
+    outputs.dir("$buildDir/reports/paparazzi/xasa.zip")
     distribution {
       enabled = true
       maxRemoteExecutors = 3
