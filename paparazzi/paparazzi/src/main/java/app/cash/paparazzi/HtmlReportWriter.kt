@@ -201,6 +201,7 @@ class HtmlReportWriter @JvmOverloads constructor(
   /** Release all resources and block until everything has been written to the file system. */
   override fun close() {
     writeRunJs()
+    println("psdosdodsodsodsodsodso")
     val inputDirectory = File(rootDirectory.path)
     val outputZipFile = File.createTempFile("out", ".zip")
     ZipOutputStream(BufferedOutputStream(FileOutputStream(outputZipFile))).use { zos ->
@@ -216,7 +217,7 @@ class HtmlReportWriter @JvmOverloads constructor(
     }
     rootDirectory.walkTopDown().forEach {
       if (it.name.contains(".zip")) {
-
+        println(it.name)
       } else {
         it.delete()
       }
