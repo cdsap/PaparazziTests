@@ -203,7 +203,7 @@ class HtmlReportWriter @JvmOverloads constructor(
     writeRunJs()
     println("psdosdodsodsodsodsodso")
     val inputDirectory = File(rootDirectory.path)
-    val outputZipFile = File.createTempFile(rootDirectory.path, "xasa.zip")
+    val outputZipFile = File(rootDirectory.path, "xasa.zip")
     ZipOutputStream(BufferedOutputStream(FileOutputStream(outputZipFile))).use { zos ->
       inputDirectory.walkTopDown().forEach { file ->
         val zipFileName =
