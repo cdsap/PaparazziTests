@@ -39,4 +39,9 @@ jobs:
         run: ./gradlew  :sample:test
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-
+      - name: Upload test reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: liberica-${{matrix.os}}
+          path: |
+            sample/build/*
