@@ -1,4 +1,26 @@
+pluginManagement {
+
+  repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+  }
+}
+plugins {
+  id("com.gradle.common-custom-user-data-gradle-plugin") version "1.8.1"
+  id("com.gradle.enterprise") version "3.11.1"
+
+}
+
+gradleEnterprise {
+  server = "https://events.gradle.com/"
+  allowUntrustedServer = true
+  buildScan {
+    publishAlways()
+  }
+}
 rootProject.name = 'paparazzi-root'
+
 
 include ':sample'
 
@@ -9,5 +31,7 @@ includeBuild('paparazzi') {
     substitute module('app.cash.paparazzi:paparazzi-gradle-plugin') using project(':paparazzi-gradle-plugin')
   }
 }
+
+
 
 enableFeaturePreview('TYPESAFE_PROJECT_ACCESSORS')

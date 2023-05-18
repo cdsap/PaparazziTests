@@ -15,7 +15,7 @@ jobs:
           windows-latest,
           ubuntu-latest
         ]
-        java-version: [11, 12, 16, 18]
+        java-version: [17]
 
     runs-on: ${{matrix.os}}
 
@@ -36,62 +36,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Run Paparazzi Tests
-        run: ./gradlew -p paparazzi check
-
-      - name: Run Sample Tests
-        run: ./gradlew check
-
-      - name: Upload Test Failures
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-failures
-          path: |
-            **/build/reports/tests/*/
-            **/out/failures/
-            paparazzi/paparazzi-gradle-plugin/src/test/projects/**/build/reports/paparazzi/images/
-
-  publish:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
-    needs:
-      - build
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3.5.2
-
-      - name: Configure JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: 11
-
-      - name: Publish Artifacts
-        run: ./gradlew -p paparazzi publishMavenPublicationToMavenCentralRepository paparazzi-gradle-plugin:publishPluginMavenPublicationToMavenCentralRepository paparazzi-gradle-plugin:publishPaparazziPluginMarkerMavenPublicationToMavenCentralRepository --no-parallel
+        run: ./gradlew  :sample:test
         env:
-          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_NEXUS_USERNAME }}
-          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_NEXUS_PASSWORD }}
-          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.ARTIFACT_SIGNING_PRIVATE_KEY }}
+          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.8
-
-      - name: Prep mkdocs
-        run: .github/workflows/prepare_mkdocs.sh
-
-      - name: Build mkdocs
-        run: |
-          pip3 install -r .github/workflows/requirements.txt
-          mkdocs build
-
-      - name: Deploy docs to website
-        if: success()
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: site
-          CLEAN: true

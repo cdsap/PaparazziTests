@@ -155,7 +155,9 @@ class Paparazzi @JvmOverloads constructor(
     testName = description.toTestName()
 
     if (!isInitialized) {
+      println("1")
       renderer = Renderer(environment, layoutlibCallback, logger)
+
       sessionParamsBuilder = renderer.prepare()
     }
 

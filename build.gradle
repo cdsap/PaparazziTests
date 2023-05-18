@@ -24,10 +24,18 @@ subprojects {
   repositories {
     mavenCentral()
     google()
-    //mavenLocal()
   }
 
   tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+    inputs.file("build/intermediates/paparazzi/${it.name.replace("UnitTest", "").replace("test", "").toLowerCase()}/resources.txt")
+    outputs.dir("$buildDir/reports/paparazzi/")
+    distribution {
+      enabled = true
+      maxRemoteExecutors = 3
+      maxLocalExecutors = 0
+      requirements = ['android']
+    }
     testLogging {
       events "passed", "failed", "skipped", "standardOut", "standardError"
       exceptionFormat "full"
@@ -54,10 +62,10 @@ subprojects {
       target("src/**/*.kt")
       // ktlint doesn't honour .editorconfig yet: https://github.com/diffplug/spotless/issues/142
       ktlint(libs.versions.ktlint.get()).editorConfigOverride([
-        'insert_final_newline': 'true',
-        'end_of_line': 'lf',
-        'charset': 'utf-8',
-        'indent_size': '2',
+        'insert_final_newline'    : 'true',
+        'end_of_line'             : 'lf',
+        'charset'                 : 'utf-8',
+        'indent_size'             : '2',
         'trim_trailing_whitespace': 'true',
         'ij_kotlin_imports_layout': '*,java.**,javax.**,kotlin.**,kotlinx.**,^'
       ])
