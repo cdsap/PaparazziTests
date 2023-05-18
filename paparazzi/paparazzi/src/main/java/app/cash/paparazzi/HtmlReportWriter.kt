@@ -92,27 +92,6 @@ class HtmlReportWriter @JvmOverloads constructor(
     writeStaticFiles()
     writeRunJs()
     writeIndexJs()
-    val inputDirectory = File(rootDirectory.path)
-    val outputZipFile = File.createTempFile("out", ".zip")
-    ZipOutputStream(BufferedOutputStream(FileOutputStream(outputZipFile))).use { zos ->
-      inputDirectory.walkTopDown().forEach { file ->
-        val zipFileName =
-          file.absolutePath.removePrefix(inputDirectory.absolutePath).removePrefix("/")
-        val entry = ZipEntry("$zipFileName${(if (file.isDirectory) "/" else "")}")
-        zos.putNextEntry(entry)
-        if (file.isFile) {
-          file.inputStream().use { fis -> fis.copyTo(zos) }
-        }
-      }
-    }
-    rootDirectory.walkTopDown().forEach {
-      if (it.name.contains(".zip")) {
-
-      } else {
-        it.delete()
-      }
-    }
-
   }
 
   override fun newFrameHandler(
@@ -222,6 +201,26 @@ class HtmlReportWriter @JvmOverloads constructor(
   /** Release all resources and block until everything has been written to the file system. */
   override fun close() {
     writeRunJs()
+    val inputDirectory = File(rootDirectory.path)
+    val outputZipFile = File.createTempFile("out", ".zip")
+    ZipOutputStream(BufferedOutputStream(FileOutputStream(outputZipFile))).use { zos ->
+      inputDirectory.walkTopDown().forEach { file ->
+        val zipFileName =
+          file.absolutePath.removePrefix(inputDirectory.absolutePath).removePrefix("/")
+        val entry = ZipEntry("$zipFileName${(if (file.isDirectory) "/" else "")}")
+        zos.putNextEntry(entry)
+        if (file.isFile) {
+          file.inputStream().use { fis -> fis.copyTo(zos) }
+        }
+      }
+    }
+    rootDirectory.walkTopDown().forEach {
+      if (it.name.contains(".zip")) {
+
+      } else {
+        it.delete()
+      }
+    }
   }
 
   /**
