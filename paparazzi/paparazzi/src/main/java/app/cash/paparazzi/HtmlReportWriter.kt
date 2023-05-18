@@ -216,6 +216,7 @@ class HtmlReportWriter @JvmOverloads constructor(
       }
     }
     rootDirectory.walkTopDown().forEach {
+      println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx ${it.name}")
       if (it.name.contains(".zip")) {
         println(it.name)
       } else {
