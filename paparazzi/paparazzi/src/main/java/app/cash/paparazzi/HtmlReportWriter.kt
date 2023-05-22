@@ -205,6 +205,7 @@ class HtmlReportWriter @JvmOverloads constructor(
     //writeRunJs()
     println("psdosdodsodsodsodsodso")
     val s = (0..10).random()
+    println(s)
     val a =  File(rootDirectory.path, "xoxo").writeText("$s")
 //    val inputDirectory = File(rootDirectory.path)
 //    val outputZipFile = File(rootDirectory.path, "xasa")
