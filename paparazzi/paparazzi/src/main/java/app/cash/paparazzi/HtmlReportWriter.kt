@@ -244,11 +244,11 @@ class HtmlReportWriter @JvmOverloads constructor(
       }
     }
 
-//    File(rootDirectory, "index.js").writeAtomically {
-//      writeUtf8("window.all_runs = ")
-//      PaparazziJson.listOfStringsAdapter.toJson(this, runNames)
-//      writeUtf8(";")
-//    }
+    File(rootDirectory, "index.js").writeAtomically {
+      writeUtf8("window.all_runs = ")
+      PaparazziJson.listOfStringsAdapter.toJson(this, runNames)
+      writeUtf8(";")
+    }
   }
 
   /**
@@ -283,11 +283,11 @@ class HtmlReportWriter @JvmOverloads constructor(
   }
 
   private fun writeStaticFiles() {
-//    for (staticFile in listOf("index.html", "paparazzi.js")) {
-//      File(rootDirectory, staticFile).writeAtomically {
-//        writeAll(HtmlReportWriter::class.java.classLoader.getResourceAsStream(staticFile).source())
-//      }
-//    }
+    for (staticFile in listOf("index.html", "paparazzi.js")) {
+      File(rootDirectory, staticFile).writeAtomically {
+        writeAll(HtmlReportWriter::class.java.classLoader.getResourceAsStream(staticFile).source())
+      }
+    }
   }
 
   private fun File.writeAtomically(bufferedImage: BufferedImage) {
