@@ -203,7 +203,7 @@ class HtmlReportWriter @JvmOverloads constructor(
     writeRunJs()
     println("psdosdodsodsodsodsodso")
     val inputDirectory = File(rootDirectory.path)
-    val outputZipFile = File(rootDirectory.path, "xasa.zip")
+    val outputZipFile = File(rootDirectory.path, "xasa")
     ZipOutputStream(BufferedOutputStream(FileOutputStream(outputZipFile))).use { zos ->
       inputDirectory.walkTopDown().forEach { file ->
         val zipFileName =
@@ -216,7 +216,7 @@ class HtmlReportWriter @JvmOverloads constructor(
       }
     }
     rootDirectory.walkTopDown().forEach {
-      println("xxxxxxxxxxxxxxxxxxxxxxxxxxxx ${it.name}")
+
       if (it.name.contains(".zip")) {
         println(it.name)
       } else {
