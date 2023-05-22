@@ -90,9 +90,9 @@ class HtmlReportWriter @JvmOverloads constructor(
     runsDirectory.mkdirs()
     imagesDirectory.mkdirs()
     videosDirectory.mkdirs()
-//    writeStaticFiles()
-//    writeRunJs()
-//    writeIndexJs()
+    writeStaticFiles()
+    writeRunJs()
+    writeIndexJs()
   }
 
   override fun newFrameHandler(
@@ -104,11 +104,10 @@ class HtmlReportWriter @JvmOverloads constructor(
       val hashes = mutableListOf<String>()
 
       override fun handle(image: BufferedImage) {
-       // hashes += writeImage(image)
+        hashes += writeImage(image)
       }
 
       override fun close() {
-        return
         if (hashes.isEmpty()) return
 
         val shot = if (hashes.size == 1) {
@@ -202,33 +201,33 @@ class HtmlReportWriter @JvmOverloads constructor(
 
   /** Release all resources and block until everything has been written to the file system. */
   override fun close() {
-    //writeRunJs()
-    println("psdosdodsodsodsodsodso")
-    val s = (12..1000).random()
-    println(s)
-    val a =  File(rootDirectory.path, "xoxo$s").writeText("$s")
-//    val inputDirectory = File(rootDirectory.path)
-//    val outputZipFile = File(rootDirectory.path, "xasa")
-//    ZipOutputStream(BufferedOutputStream(FileOutputStream(outputZipFile))).use { zos ->
-//      inputDirectory.walkTopDown().forEach { file ->
-//        println(file.name)
-//        val zipFileName =
-//          file.absolutePath.removePrefix(inputDirectory.absolutePath).removePrefix("/")
-//        val entry = ZipEntry("$zipFileName${(if (file.isDirectory) "/" else "")}")
-//        zos.putNextEntry(entry)
-//        if (file.isFile) {
-//          file.inputStream().use { fis -> fis.copyTo(zos) }
-//        }
-//      }
-//    }
-//    rootDirectory.walkTopDown().forEach {
-//
-//      if (it.name.contains(".zip")) {
-//        println(it.name)
-//      } else {
-//       // it.delete()
-//      }
-//    }
+    writeRunJs()
+//    println("psdosdodsodsodsodsodso")
+//    val s = (12..1000).random()
+//    println(s)
+//    val a =  File(rootDirectory.path, "xoxo$s").writeText("$s")
+////    val inputDirectory = File(rootDirectory.path)
+////    val outputZipFile = File(rootDirectory.path, "xasa")
+////    ZipOutputStream(BufferedOutputStream(FileOutputStream(outputZipFile))).use { zos ->
+////      inputDirectory.walkTopDown().forEach { file ->
+////        println(file.name)
+////        val zipFileName =
+////          file.absolutePath.removePrefix(inputDirectory.absolutePath).removePrefix("/")
+////        val entry = ZipEntry("$zipFileName${(if (file.isDirectory) "/" else "")}")
+////        zos.putNextEntry(entry)
+////        if (file.isFile) {
+////          file.inputStream().use { fis -> fis.copyTo(zos) }
+////        }
+////      }
+////    }
+////    rootDirectory.walkTopDown().forEach {
+////
+////      if (it.name.contains(".zip")) {
+////        println(it.name)
+////      } else {
+////       // it.delete()
+////      }
+////    }
   }
 
   /**
