@@ -108,6 +108,7 @@ class HtmlReportWriter @JvmOverloads constructor(
       }
 
       override fun close() {
+        return
         if (hashes.isEmpty()) return
 
         val shot = if (hashes.size == 1) {
