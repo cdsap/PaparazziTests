@@ -29,10 +29,10 @@ subprojects {
   tasks.withType(Test).configureEach {
     useJUnitPlatform()
     inputs.file("build/intermediates/paparazzi/${it.name.replace("UnitTest", "").replace("test", "").toLowerCase()}/resources.txt")
-    outputs.dir("$buildDir/reports/paparazzi/xasa.zip")
+    outputs.dir("$buildDir/reports/paparazzi/")
     distribution {
       enabled = true
-      maxRemoteExecutors = 3
+      maxRemoteExecutors = 2
       maxLocalExecutors = 0
       requirements = ['android']
     }
