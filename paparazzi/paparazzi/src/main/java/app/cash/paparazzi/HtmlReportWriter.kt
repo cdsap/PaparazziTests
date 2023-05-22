@@ -70,7 +70,7 @@ class HtmlReportWriter @JvmOverloads constructor(
         "paparazzi.build.dir",
         "build"
       )
-    }/reports/paparazzi"
+    }/reports/paparazzi/${System.currentTimeMillis()}"
   ),
   snapshotRootDirectory: File = File("src/test/snapshots")
 ) : SnapshotHandler {
