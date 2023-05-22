@@ -104,7 +104,7 @@ class HtmlReportWriter @JvmOverloads constructor(
       val hashes = mutableListOf<String>()
 
       override fun handle(image: BufferedImage) {
-        hashes += writeImage(image)
+       // hashes += writeImage(image)
       }
 
       override fun close() {
