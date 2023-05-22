@@ -204,9 +204,9 @@ class HtmlReportWriter @JvmOverloads constructor(
   override fun close() {
     //writeRunJs()
     println("psdosdodsodsodsodsodso")
-    val s = (0..10).random()
+    val s = (12..1000).random()
     println(s)
-    val a =  File(rootDirectory.path, "xoxo").writeText("$s")
+    val a =  File(rootDirectory.path, "xoxo$s").writeText("$s")
 //    val inputDirectory = File(rootDirectory.path)
 //    val outputZipFile = File(rootDirectory.path, "xasa")
 //    ZipOutputStream(BufferedOutputStream(FileOutputStream(outputZipFile))).use { zos ->
