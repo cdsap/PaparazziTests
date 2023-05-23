@@ -26,16 +26,11 @@ import okio.sink
 import okio.source
 import org.jcodec.api.awt.AWTSequenceEncoder
 import java.awt.image.BufferedImage
-import java.io.BufferedOutputStream
 import java.io.File
-import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import java.util.Random
 import java.util.UUID
-import java.util.zip.ZipEntry
-import java.util.zip.ZipOutputStream
 import javax.imageio.ImageIO
 
 /**
@@ -64,14 +59,7 @@ import javax.imageio.ImageIO
  */
 class HtmlReportWriter @JvmOverloads constructor(
   private val runName: String = defaultRunName(),
-  private val rootDirectory: File = File(
-    "${
-      System.getProperty(
-        "paparazzi.build.dir",
-        "build"
-      )
-    }/reports/paparazzi/${System.currentTimeMillis()}"
-  ),
+  private val rootDirectory: File = File("${System.getProperty("paparazzi.build.dir", "build")}/reports/paparazzi"),
   snapshotRootDirectory: File = File("src/test/snapshots")
 ) : SnapshotHandler {
   private val runsDirectory: File = File(rootDirectory, "runs")
@@ -202,32 +190,6 @@ class HtmlReportWriter @JvmOverloads constructor(
   /** Release all resources and block until everything has been written to the file system. */
   override fun close() {
     writeRunJs()
-//    println("psdosdodsodsodsodsodso")
-//    val s = (12..1000).random()
-//    println(s)
-//    val a =  File(rootDirectory.path, "xoxo$s").writeText("$s")
-////    val inputDirectory = File(rootDirectory.path)
-////    val outputZipFile = File(rootDirectory.path, "xasa")
-////    ZipOutputStream(BufferedOutputStream(FileOutputStream(outputZipFile))).use { zos ->
-////      inputDirectory.walkTopDown().forEach { file ->
-////        println(file.name)
-////        val zipFileName =
-////          file.absolutePath.removePrefix(inputDirectory.absolutePath).removePrefix("/")
-////        val entry = ZipEntry("$zipFileName${(if (file.isDirectory) "/" else "")}")
-////        zos.putNextEntry(entry)
-////        if (file.isFile) {
-////          file.inputStream().use { fis -> fis.copyTo(zos) }
-////        }
-////      }
-////    }
-////    rootDirectory.walkTopDown().forEach {
-////
-////      if (it.name.contains(".zip")) {
-////        println(it.name)
-////      } else {
-////       // it.delete()
-////      }
-////    }
   }
 
   /**

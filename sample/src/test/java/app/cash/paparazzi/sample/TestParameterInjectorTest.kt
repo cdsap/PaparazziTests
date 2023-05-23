@@ -6,6 +6,7 @@ import app.cash.paparazzi.Paparazzi
 import app.cash.paparazzi.sample.databinding.KeypadBinding
 import com.google.testing.junit.testparameterinjector.TestParameter
 import com.google.testing.junit.testparameterinjector.TestParameterInjector
+import io.github.cdsap.td.paparazzi.TDPaparazziHandlerProvider
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,7 +33,10 @@ class TestParameterInjectorTest(
   }
 
   @get:Rule
-  val paparazzi = Paparazzi(deviceConfig = config.deviceConfig)
+  val paparazzi = Paparazzi(
+    deviceConfig = config.deviceConfig,
+    snapshotHandler = TDPaparazziHandlerProvider().determineHandler(0.1)
+  )
 
   @Test
   fun simple() {

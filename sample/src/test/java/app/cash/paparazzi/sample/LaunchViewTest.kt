@@ -20,12 +20,14 @@ import app.cash.paparazzi.DeviceConfig.Companion.NEXUS_5
 import app.cash.paparazzi.DeviceConfig.Companion.NEXUS_5_LAND
 import app.cash.paparazzi.DeviceConfig.Companion.PIXEL_3
 import app.cash.paparazzi.Paparazzi
+import io.github.cdsap.td.paparazzi.TDPaparazziHandlerProvider
 import org.junit.Rule
 import org.junit.Test
 
 class LaunchViewTest {
   @get:Rule
-  val paparazzi = Paparazzi(deviceConfig = PIXEL_3)
+  val paparazzi = Paparazzi(deviceConfig = PIXEL_3,
+    snapshotHandler = TDPaparazziHandlerProvider().determineHandler(0.1))
 
   @Test
   fun pixel3() {

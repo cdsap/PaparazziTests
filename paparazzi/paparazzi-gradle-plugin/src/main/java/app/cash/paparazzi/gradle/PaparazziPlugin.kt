@@ -45,7 +45,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinAndroidPluginWrapper
 import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
-import java.io.File
 import java.util.Locale
 import kotlin.io.path.invariantSeparatorsPathString
 
@@ -115,14 +114,6 @@ class PaparazziPlugin : Plugin<Project> {
         task.paparazziResources.set(buildDirectory.file("intermediates/paparazzi/${variant.name}/resources.txt"))
       }
 
-      val mergeOutputTask = project.tasks.register(
-        "mergePaparazzi${variantSlug}Outputs",
-        MergeOutputTask::class.java
-      ) { task ->
-        task.artifactFiles.set(File("build/reports/paparazzi"))
-        task.outputFile.set(File("build/reports/paparazzi-td"))
-
-      }
       val testVariantSlug = testVariant.name.capitalize(Locale.US)
 
       project.plugins.withType(JavaBasePlugin::class.java) {
@@ -145,15 +136,13 @@ class PaparazziPlugin : Plugin<Project> {
           .configure { it.dependsOn(writeResourcesTask) }
       }
 
-      val recordTaskProvider =
-        project.tasks.register("recordPaparazzi$variantSlug", PaparazziTask::class.java) {
-          it.group = VERIFICATION_GROUP
-        }
+      val recordTaskProvider = project.tasks.register("recordPaparazzi$variantSlug", PaparazziTask::class.java) {
+        it.group = VERIFICATION_GROUP
+      }
       recordVariants.configure { it.dependsOn(recordTaskProvider) }
-      val verifyTaskProvider =
-        project.tasks.register("verifyPaparazzi$variantSlug", PaparazziTask::class.java) {
-          it.group = VERIFICATION_GROUP
-        }
+      val verifyTaskProvider = project.tasks.register("verifyPaparazzi$variantSlug", PaparazziTask::class.java) {
+        it.group = VERIFICATION_GROUP
+      }
       verifyVariants.configure { it.dependsOn(verifyTaskProvider) }
 
       val isRecordRun = project.objects.property(Boolean::class.java)
@@ -184,7 +173,6 @@ class PaparazziPlugin : Plugin<Project> {
         test.outputs.dir(reportOutputDir)
         test.outputs.dir(snapshotOutputDir)
 
-        test.finalizedBy(mergeOutputTask)
         @Suppress("ObjectLiteralToLambda")
         // why not a lambda?  See: https://docs.gradle.org/7.2/userguide/validation_problems.html#implementation_unknown
         test.doFirst(object : Action<Task> {
@@ -197,7 +185,6 @@ class PaparazziPlugin : Plugin<Project> {
             test.systemProperties["paparazzi.test.verify"] = isVerifyRun.get()
           }
         })
-
       }
 
       recordTaskProvider.configure { it.dependsOn(testTaskProvider) }
@@ -217,10 +204,7 @@ class PaparazziPlugin : Plugin<Project> {
   }
 
   open class PaparazziTask : DefaultTask() {
-    @Option(
-      option = "tests",
-      description = "Sets test class or method name to be included, '*' is supported."
-    )
+    @Option(option = "tests", description = "Sets test class or method name to be included, '*' is supported.")
     open fun setTestNameIncludePatterns(testNamePattern: List<String>): PaparazziTask {
       project.tasks.withType(Test::class.java).configureEach {
         it.setTestNameIncludePatterns(testNamePattern)
@@ -239,7 +223,6 @@ class PaparazziPlugin : Plugin<Project> {
         val osArch = System.getProperty("os.arch").lowercase(Locale.US)
         if (osArch.startsWith("x86")) "macosx" else "macarm"
       }
-
       operatingSystem.isWindows -> "win"
       else -> "linux"
     }
