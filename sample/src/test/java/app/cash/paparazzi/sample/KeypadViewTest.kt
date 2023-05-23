@@ -50,7 +50,7 @@ class KeypadViewTest {
       amount456.setTextColor(darkGrey)
       amount789.setTextColor(darkGrey)
       amount0.setTextColor(darkGrey)
-      amount.text = ".0QQQ222 BTC"
+      amount.text = ".01 BTC"
 
       paparazzi.snapshot(root, "bolt")
 
