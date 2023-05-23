@@ -30,10 +30,11 @@ subprojects {
     useJUnitPlatform()
     inputs.file("build/intermediates/paparazzi/${it.name.replace("UnitTest", "").replace("test", "").toLowerCase()}/resources.txt")
     outputs.dir("build/reports/paparazzi/")
+    outputs.dir("out/failures/")
     distribution {
       enabled = true
-      maxRemoteExecutors = 2
-      maxLocalExecutors = 0
+      maxRemoteExecutors = 0
+      maxLocalExecutors = 2
       requirements = ['android']
     }
     testLogging {
