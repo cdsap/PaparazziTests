@@ -29,7 +29,7 @@ subprojects {
   tasks.withType(Test).configureEach {
     useJUnitPlatform()
     inputs.file("build/intermediates/paparazzi/${it.name.replace("UnitTest", "").replace("test", "").toLowerCase()}/resources.txt")
-    outputs.dir("build/reports/paparazzi/")
+    outputs.dir("build/reports/paparazzi-td/")
     outputs.dir("out/failures/")
     distribution {
       enabled = true

@@ -120,7 +120,7 @@ class PaparazziPlugin : Plugin<Project> {
         MergeOutputTask::class.java
       ) { task ->
         task.artifactFiles.set(File("build/reports/paparazzi"))
-        task.outputFile.set(File("build/reports/paparazzi"))
+        task.outputFile.set(File("build/reports/paparazzi-td"))
 
       }
       val testVariantSlug = testVariant.name.capitalize(Locale.US)
