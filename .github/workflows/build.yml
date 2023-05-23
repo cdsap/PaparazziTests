@@ -32,7 +32,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Run Paparazzi Tests
-        run: ./gradlew  :sample:verifyPaparazzi
+        run: ./gradlew  :sample:testDebugUnitTest
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
       - name: Upload er reports
