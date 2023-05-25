@@ -29,12 +29,16 @@ subprojects {
   tasks.withType(Test).configureEach {
     useJUnitPlatform()
     inputs.file("build/intermediates/paparazzi/${it.name.replace("UnitTest", "").replace("test", "").toLowerCase()}/resources.txt")
-    outputs.dir("$buildDir/reports/paparazzi/")
+    outputs.dir("build/reports/paparazzi-td/")
+    outputs.dir("out/failures/")
+//    predictiveSelection {
+//      enabled = true
+//    }
     distribution {
       enabled = true
-      maxRemoteExecutors = 3
+      maxRemoteExecutors = 2
       maxLocalExecutors = 0
-      requirements = ['android']
+ //     requirements = ['android']
     }
     testLogging {
       events "passed", "failed", "skipped", "standardOut", "standardError"

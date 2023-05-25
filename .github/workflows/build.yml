@@ -10,11 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [
-          macOS-latest,
-          windows-latest,
-          ubuntu-latest
-        ]
+        os: [ubuntu-latest]
         java-version: [17]
 
     runs-on: ${{matrix.os}}
@@ -36,7 +32,14 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Run Paparazzi Tests
-        run: ./gradlew  :sample:test
+        run: ./gradlew  :sample:testDebugUnitTest
         env:
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
+      - name: Upload er reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: liberica-${{matrix.os}}
+          path: |
+            sample/build/*
+            sample/out/*
 

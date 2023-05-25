@@ -19,12 +19,13 @@ import android.animation.ObjectAnimator
 import android.view.View
 import app.cash.paparazzi.Paparazzi
 import app.cash.paparazzi.sample.databinding.KeypadBinding
+import io.github.cdsap.td.paparazzi.TDPaparazziHandlerProvider
 import org.junit.Rule
 import org.junit.Test
 
 class KeypadViewTest {
   @get:Rule
-  val paparazzi = Paparazzi()
+  val paparazzi = Paparazzi(  snapshotHandler = TDPaparazziHandlerProvider().determineHandler(0.1))
 
   @Test
   fun testViews() {
